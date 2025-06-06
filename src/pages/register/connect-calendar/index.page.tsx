@@ -46,11 +46,7 @@ export default function ConnectCalendar() {
                 <Check />
               </Button>
             ) : (
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={handleConnectCalendar}
-              >
+              <Button variant="secondary" size="sm" onClick={handleConnectCalendar} >
                 Conectar
                 <ArrowRight />
               </Button>
@@ -64,11 +60,7 @@ export default function ConnectCalendar() {
             </AuthError>
           )}
 
-          <Button
-            onClick={handleNavigateToNextStep}
-            type="submit"
-            disabled={!isSignedId}
-          >
+          <Button onClick={handleNavigateToNextStep} type="submit" disabled={!isSignedId} >
             Próximo passo
             <ArrowRight />
           </Button>
