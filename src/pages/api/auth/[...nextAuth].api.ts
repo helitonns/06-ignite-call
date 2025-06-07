@@ -32,13 +32,10 @@ export function buildNextAuthOptions( req: NextApiRequest | NextPageContext['req
     ],
     callbacks: {
       async signIn({ account }) {
-        if (
-          !account?.scope?.includes('https://www.googleapis.com/auth/calendar')
-        ) {
+        if (!account?.scope?.includes('https://www.googleapis.com/auth/calendar')) {
           return '/register/connect-calendar?error=permissions'
         }
-
-        return true
+        return true;
       },
       async session({ session, user }) {
         return {
