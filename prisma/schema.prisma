@@ -51,6 +51,7 @@ model Session {
   session_token String   @unique
   user_id       String
   expires       DateTime
+  
   user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
