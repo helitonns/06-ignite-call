@@ -6,10 +6,10 @@ import { prisma } from '../prisma'
 export function PrismaAdapter(req: NextApiRequest | NextPageContext['req'], res: NextApiResponse | NextPageContext['res']): Adapter {
   return {
     async createUser(user) {
-      const { '@ignitecall:userId': userIdOnCookies } = parseCookies({ req })
+      const { '@ignitecall:userId': userIdOnCookies } = parseCookies({ req });
 
       if (!userIdOnCookies) {
-        throw new Error('User ID not found on cookies.')
+        throw new Error('User ID not found on cookies.');
       }
 
       const prismaUser = await prisma.user.update({
