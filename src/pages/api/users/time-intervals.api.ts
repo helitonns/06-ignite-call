@@ -12,12 +12,10 @@ const timeIntervalsBodySchema = z.object({
       endTimeInMinutes: z.number(),
     }),
   ),
-})
+});
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  
   if (req.method !== 'POST') {
     return res.status(405).end()
   }
@@ -26,10 +24,10 @@ export default async function handler(
     req,
     res,
     buildNextAuthOptions(req, res),
-  )
+  );
 
   if (!session) {
-    return res.status(401).end()
+    return res.status(401).end();
   }
 
   const { intervals } = timeIntervalsBodySchema.parse(req.body)
@@ -45,7 +43,7 @@ export default async function handler(
         },
       })
     }),
-  )
+  );
 
-  return res.status(201).end()
+  return res.status(201).end();
 }

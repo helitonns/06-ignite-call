@@ -8,10 +8,7 @@ const updateProfileBodySchema = z.object({
   bio: z.string(),
 })
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'PUT') {
     return res.status(405).end()
   }
@@ -23,7 +20,7 @@ export default async function handler(
   )
 
   if (!session) {
-    return res.status(401).end()
+    return res.status(401).end();
   }
 
   const { bio } = updateProfileBodySchema.parse(req.body)
@@ -35,7 +32,7 @@ export default async function handler(
     data: {
       bio,
     },
-  })
+  });
 
-  return res.status(204).end()
+  return res.status(204).end();
 }

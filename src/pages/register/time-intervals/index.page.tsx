@@ -1,30 +1,16 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  Button,
-  Checkbox,
-  Heading,
-  MultiStep,
-  Text,
-  TextInput,
-} from '@ignite-ui/react'
-import { NextSeo } from 'next-seo'
-import { useRouter } from 'next/router'
-import { ArrowRight } from 'phosphor-react'
-import { Controller, useFieldArray, useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { api } from '../../../lib/axios'
-import { convertTimeStringToMinutes } from '../../../utils/convert-time-string-to-minutes'
-import { getWeekDays } from '../../../utils/get-week-days'
-import { Container, Header } from '../styles'
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button, Checkbox, Heading, MultiStep, Text, TextInput, } from '@ignite-ui/react';
+import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
+import { ArrowRight } from 'phosphor-react';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { api } from '../../../lib/axios';
+import { convertTimeStringToMinutes } from '../../../utils/convert-time-string-to-minutes';
+import { getWeekDays } from '../../../utils/get-week-days';
+import { Container, Header } from '../styles';
 
-import {
-  FormError,
-  IntervalBox,
-  IntervalContainer,
-  IntervalDay,
-  IntervalInputs,
-  IntervalItem,
-} from './styles'
+import { FormError, IntervalBox, IntervalContainer, IntervalDay, IntervalInputs, IntervalItem, } from './styles';
 
 const timeIntervalsFormSchema = z.object({
   intervals: z
@@ -68,13 +54,7 @@ type TimeIntervalsFormInput = z.input<typeof timeIntervalsFormSchema>
 type TimeIntervalsFormOutput = z.output<typeof timeIntervalsFormSchema>
 
 export default function TimeIntervals() {
-  const {
-    register,
-    handleSubmit,
-    control,
-    watch,
-    formState: { isSubmitting, errors },
-  } = useForm<TimeIntervalsFormInput>({
+  const { register, handleSubmit, control, watch, formState: { isSubmitting, errors }, } = useForm<TimeIntervalsFormInput>({
     resolver: zodResolver(timeIntervalsFormSchema),
     defaultValues: {
       intervals: [
@@ -87,27 +67,27 @@ export default function TimeIntervals() {
         { weekDay: 6, enabled: false, startTime: '08:00', endTime: '18:00' },
       ],
     },
-  })
+  });
 
-  const router = useRouter()
+  const router = useRouter();
 
-  const weekDays = getWeekDays()
+  const weekDays = getWeekDays();
 
   const { fields } = useFieldArray({
     control,
     name: 'intervals',
-  })
+  });
 
-  const intervals = watch('intervals')
+  const intervals = watch('intervals');
 
   async function handleSetTimeIntervals(data: any) {
-    const { intervals } = data as TimeIntervalsFormOutput
+    const { intervals } = data as TimeIntervalsFormOutput;
 
     await api.post('/users/time-intervals', {
       intervals,
-    })
+    });
 
-    await router.push('/register/update-profile')
+    await router.push('/register/update-profile');
   }
 
   return (
@@ -118,8 +98,7 @@ export default function TimeIntervals() {
         <Header>
           <Heading as="strong">Quase lá</Heading>
           <Text>
-            Defina o intervalo de horário que você está disponível em cada dia
-            da semana.
+            Defina o intervalo de horário que você está disponível em cada dia da semana.
           </Text>
 
           <MultiStep size={4} currentStep={3} />
@@ -137,9 +116,7 @@ export default function TimeIntervals() {
                       render={({ field }) => {
                         return (
                           <Checkbox
-                            onCheckedChange={(checked) =>
-                              field.onChange(checked === true)
-                            }
+                            onCheckedChange={(checked) => field.onChange(checked === true) }
                             checked={field.value}
                           />
                         )
@@ -179,5 +156,5 @@ export default function TimeIntervals() {
         </IntervalBox>
       </Container>
     </>
-  )
+  );
 }

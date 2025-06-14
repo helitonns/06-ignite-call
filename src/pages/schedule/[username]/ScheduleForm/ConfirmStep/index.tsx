@@ -12,29 +12,22 @@ const confirmFormSchema = z.object({
   name: z.string().min(3, { message: 'O nome precisa no mínimo 3 caracteres' }),
   email: z.string().email({ message: 'Digite um e-mail válido' }),
   observations: z.string().nullable(),
-})
+});
 
-type ConfirmFormData = z.infer<typeof confirmFormSchema>
+type ConfirmFormData = z.infer<typeof confirmFormSchema>;
 
 interface ConfirmStepProps {
   schedulingDate: Date
   onCancelConfirmation: () => void
-}
+};
 
-export function ConfirmStep({
-  schedulingDate,
-  onCancelConfirmation,
-}: ConfirmStepProps) {
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting, errors },
-  } = useForm<ConfirmFormData>({
+export function ConfirmStep({ schedulingDate, onCancelConfirmation, }: ConfirmStepProps) {
+  const { register, handleSubmit, formState: { isSubmitting, errors }, } = useForm<ConfirmFormData>({
     resolver: zodResolver(confirmFormSchema),
-  })
+  });
 
-  const router = useRouter()
-  const username = String(router.query.username)
+  const router = useRouter();
+  const username = String(router.query.username);
 
   async function handleConfirmScheduling(data: ConfirmFormData) {
     const { name, email, observations } = data
@@ -73,14 +66,8 @@ export function ConfirmStep({
 
       <label>
         <Text size="sm">Endereço de e-mail</Text>
-        <TextInput
-          type="email"
-          placeholder="johndoe@example.com"
-          {...register('email')}
-        />
-        {errors.email && (
-          <FormError size="sm">{errors.email.message}</FormError>
-        )}
+        <TextInput type="email" placeholder="johndoe@example.com" {...register('email')} />
+        {errors.email && ( <FormError size="sm">{errors.email.message}</FormError> )}
       </label>
 
       <label>

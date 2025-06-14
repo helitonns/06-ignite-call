@@ -31,6 +31,7 @@ export default function Schedule({ user }: ScheduleProps) {
   )
 }
 
+//diz para o Next para quais usuários (parâmetros dinâmicos) ele vai gerar páginas estáticas no momento do build
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [],
@@ -38,14 +39,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
+//fazer do cabeçalho uma página estática
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const username = String(params?.username)
+  const username = String(params?.username);
 
   const user = await prisma.user.findUnique({
     where: {
       username,
     },
-  })
+  });
 
   if (!user) {
     return {

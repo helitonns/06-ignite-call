@@ -41,7 +41,7 @@ export const TimePickerHeader = styled(Text, {
   span: {
     color: '$gray200',
   },
-})
+});
 
 export const TimePickerList = styled('div', {
   marginTop: '$3',
@@ -52,7 +52,7 @@ export const TimePickerList = styled('div', {
   '@media (max-width: 900px)': {
     gridTemplateColumns: '2fr',
   },
-})
+});
 
 export const TimePickerItem = styled('button', {
   border: 0,
@@ -81,4 +81,4 @@ export const TimePickerItem = styled('button', {
   '&:focus': {
     boxShadow: '0 0 0 2px $colors$gray100',
   },
-})
+});
